@@ -1,6 +1,5 @@
-package com.ahmed.airesumebuilder.ui.theme
+package com.ahmed.airesumebuilder.presentation.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

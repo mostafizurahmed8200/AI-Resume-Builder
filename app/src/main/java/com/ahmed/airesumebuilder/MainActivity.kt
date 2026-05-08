@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ahmed.airesumebuilder.ui.theme.AIResumeBuilderTheme
+import com.ahmed.airesumebuilder.presentation.theme.AIResumeBuilderTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

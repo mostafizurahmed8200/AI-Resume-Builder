@@ -1,4 +1,4 @@
-package com.ahmed.airesumebuilder.ui.theme
+package com.ahmed.airesumebuilder.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
