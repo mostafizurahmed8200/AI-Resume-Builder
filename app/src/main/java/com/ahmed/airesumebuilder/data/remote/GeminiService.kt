@@ -58,7 +58,8 @@ class GeminiService @Inject constructor() {
 
     //Generate Skills Suggestion
     suspend fun generateSkillSuggestion(
-        jobTitle: String, currentSkills: List<String>
+        jobTitle: String,
+        currentSkills: List<String>
     ): List<String> {
 
         val prompt = """

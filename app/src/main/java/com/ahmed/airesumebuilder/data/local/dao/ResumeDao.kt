@@ -21,6 +21,8 @@ interface ResumeDao {
     @Query("Select * from resumes where id=:resumeId")
     suspend fun getResumeById(resumeId: String): ResumeEntity?
 
+    @Query("SELECT * FROM resumes WHERE id = :resumeId")
+    fun getResumeByIdFlow(resumeId: String): Flow<ResumeEntity?>
     @Update
     suspend fun updateResumes(resume: ResumeEntity)
 
