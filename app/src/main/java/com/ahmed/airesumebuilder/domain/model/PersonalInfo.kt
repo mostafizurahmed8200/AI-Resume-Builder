@@ -12,7 +12,7 @@ data class PersonalInfo(
     val linkedIn: String = "",
     val github: String = "",
     val website: String = "",
-    val summery: String = "",
+    val summary: String = "",
     val profileUrl: String = "",
 
 
