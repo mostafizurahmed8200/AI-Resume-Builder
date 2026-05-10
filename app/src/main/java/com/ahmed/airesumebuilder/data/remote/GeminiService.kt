@@ -2,6 +2,7 @@ package com.ahmed.airesumebuilder.data.remote
 
 
 import com.ahmed.airesumebuilder.BuildConfig
+import com.ahmed.airesumebuilder.domain.model.ATSAnalysisResult
 import com.ahmed.airesumebuilder.domain.model.Experience
 import com.ahmed.airesumebuilder.domain.model.Resume
 import com.google.ai.client.generativeai.GenerativeModel
@@ -170,6 +171,43 @@ class GeminiService @Inject constructor() {
         }
     }
 
+    suspend fun suggestImprovements(resume: Resume): List<String> {
+        val prompt = """
+            You are a professional resume reviewer. Review the following resume and provide 5-7
+            specific, actionable improvement suggestions.
+
+            Resume:
+            Name: ${resume.personalInfo.fullName}
+            Email: ${resume.personalInfo.email}
+            Summary: ${resume.personalInfo.summary}
+
+            Experience:
+            ${
+            resume.experiences.joinToString("\n") {
+                "${it.jobTitle} at ${it.company} (${it.startDate} - ${it.endDate})\n${it.description}"
+            }
+        }
+
+            Education:
+            ${resume.education.joinToString("\n") { "${it.degree} - ${it.institution} (${it.graduationYear})" }}
+
+            Skills: ${resume.skills.joinToString(", ") { it.name }}
+
+            Provide 5-7 specific improvement suggestions. Format each suggestion on a new line
+            starting with "•". Focus on content, formatting, and impact.
+        """.trimIndent()
+
+        return try {
+            val response = model.generateContent(prompt)
+            response.text?.lines()?.filter { it.startsWith("•") }
+                ?.map { it.removePrefix("•").trim() } ?: emptyList()
+
+        } catch (e: Exception) {
+            listOf("Unable to generate suggestions : ${e.message}")
+        }
+
+    }
+
 
     private fun parseATSResponse(response: String): ATSAnalysisResult {
 
@@ -211,51 +249,7 @@ class GeminiService @Inject constructor() {
     }
 
 
-    suspend fun suggestImprovements(resume: Resume): List<String> {
-        val prompt = """
-            You are a professional resume reviewer. Review the following resume and provide 5-7
-            specific, actionable improvement suggestions.
 
-            Resume:
-            Name: ${resume.personalInfo.fullName}
-            Email: ${resume.personalInfo.email}
-            Summary: ${resume.personalInfo.summary}
-
-            Experience:
-            ${
-            resume.experiences.joinToString("\n") {
-                "${it.jobTitle} at ${it.company} (${it.startDate} - ${it.endDate})\n${it.description}"
-            }
-        }
-
-            Education:
-            ${resume.education.joinToString("\n") { "${it.degree} - ${it.institution} (${it.graduationYear})" }}
-
-            Skills: ${resume.skills.joinToString(", ") { it.name }}
-
-            Provide 5-7 specific improvement suggestions. Format each suggestion on a new line
-            starting with "•". Focus on content, formatting, and impact.
-        """.trimIndent()
-
-        return try {
-            val response = model.generateContent(prompt)
-            response.text?.lines()?.filter { it.startsWith("•") }
-                ?.map { it.removePrefix("•").trim() } ?: emptyList()
-
-        } catch (e: Exception) {
-            listOf("Unable to generate suggestions : ${e.message}")
-        }
-
-    }
-
-
-    data class ATSAnalysisResult(
-
-        val score: Int,
-        val matchingResult: List<String>,
-        val missingKeywords: List<String>,
-        val suggestions: List<String>
-    )
 
 
 }

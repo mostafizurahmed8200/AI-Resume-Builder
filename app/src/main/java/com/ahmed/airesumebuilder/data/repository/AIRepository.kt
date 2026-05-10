@@ -1,6 +1,7 @@
 package com.ahmed.airesumebuilder.data.repository
 
 import com.ahmed.airesumebuilder.data.remote.GeminiService
+import com.ahmed.airesumebuilder.domain.model.ATSAnalysisResult
 import com.ahmed.airesumebuilder.domain.model.Experience
 import com.ahmed.airesumebuilder.domain.model.Resume
 import com.ahmed.airesumebuilder.util.Resource
@@ -65,6 +66,32 @@ constructor(
             Resource.Error(e.message ?: "Failed to generate cover letter")
         }
 
+
+    }
+
+
+    suspend fun analyzeATS(
+        resume: Resume,
+        jobDescription: String
+    ): Resource<ATSAnalysisResult> {
+        return try {
+            val result = geminiService.analysisResumeForATS(resume, jobDescription)
+            Resource.Success(result)
+
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Failed to analyze resume")
+        }
+
+    }
+
+
+    suspend fun getImprovementSuggestions(resume: Resume): Resource<List<String>> {
+        return try {
+            val result = geminiService.suggestImprovements(resume)
+            Resource.Success(result)
+        } catch (e: Exception) {
+            Resource.Error(e.message ?: "Failed to get suggestions")
+        }
 
     }
 

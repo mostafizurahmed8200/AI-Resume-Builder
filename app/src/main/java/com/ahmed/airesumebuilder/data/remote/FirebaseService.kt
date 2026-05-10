@@ -78,7 +78,7 @@ class FirebaseService @Inject constructor(
         }
     }
 
-    suspend fun signOut() {
+    fun signOut() {
         auth.signOut()
     }
 
@@ -94,16 +94,13 @@ class FirebaseService @Inject constructor(
 
     suspend fun saveResume(resume: Resume): Resource<Unit> {
         return try {
-            fireStore.collection(Constant.RESUMES_COLLECTION)
-                .document(resume.id)
-                .set(resume)
+            fireStore.collection(Constant.RESUMES_COLLECTION).document(resume.id).set(resume)
                 .await()
             Resource.Success(Unit)
         } catch (e: Exception) {
             Resource.Error(e.message ?: "Failed to save resume")
         }
     }
-
 
 
     suspend fun getResumes(userId: String): Resource<List<Resume>> {

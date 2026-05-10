@@ -53,13 +53,14 @@ class AuthRepository @Inject constructor(
         currentUser?.uid?.let { uid ->
             userDao.deleteUser(uid)
         }
+        firebaseService.signOut()
     }
 
     suspend fun resetPassword(email: String): Resource<Unit> {
         return firebaseService.resetPassword(email)
     }
 
-    fun geLocalUser(uid: String): Flow<User?> {
+    fun getLocalUser(uid: String): Flow<User?> {
         return userDao.getUsersById(uid).map { it?.toDomain() }
     }
 
