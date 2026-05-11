@@ -34,8 +34,7 @@ class GenerateResumeUseCase
     suspend fun analyzeATS(
         resume: Resume,
         jobDescription: String
-    )
-            : Resource<ATSAnalysisResult> = aiRepository.analyzeATS(resume, jobDescription)
+    ): Resource<ATSAnalysisResult> = aiRepository.analyzeATS(resume, jobDescription)
 
 
     suspend fun suggestImprovements(resume: Resume): Resource<List<String>> =
