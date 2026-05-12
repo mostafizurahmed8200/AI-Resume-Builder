@@ -1,5 +1,11 @@
 package com.ahmed.airesumebuilder.util
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
+
 object Constant {
 
     const val DATABASE_NAME = "resume_database"
@@ -24,4 +30,11 @@ object Constant {
         const val AI_ENHANCE = "ai_enhance"
     }
 
+
+    @Composable
+    fun MSpacer(dp: Dp) {
+        Spacer(
+            modifier = Modifier.height(dp)
+        )
+    }
 }

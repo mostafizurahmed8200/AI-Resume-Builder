@@ -20,7 +20,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideResumeDatabase(@ApplicationContext context: Context): RoomDatabase {
+    fun provideResumeDatabase(@ApplicationContext context: Context): ResumeDatabase {
         return Room.databaseBuilder(
             context,
             ResumeDatabase::class.java,

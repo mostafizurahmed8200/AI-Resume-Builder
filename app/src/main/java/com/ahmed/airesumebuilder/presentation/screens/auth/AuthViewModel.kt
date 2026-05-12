@@ -53,25 +53,25 @@ class AuthViewModel @Inject constructor(
 
         }
 
-        fun logOut() = viewModelScope.launch {
-            authUseCases.logout()
-        }
-
-        fun resetPassword(email: String) {
-            viewModelScope.launch {
-                _uiState.value = AuthUiState(isLoading = true)
-                when (val result = authUseCases.resetPassword(email)) {
-                    is Resource.Success -> _uiState.value = AuthUiState(isSuccess = true)
-                    is Resource.Error -> _uiState.value = AuthUiState(errorMessage = result.message)
-                    is Resource.Loading -> Unit
-                }
-            }
-        }
-
-        fun clearError() {
-            _uiState.value = _uiState.value.copy(errorMessage = null)
-        }
 
     }
 
+    fun resetPassword(email: String) {
+        viewModelScope.launch {
+            _uiState.value = AuthUiState(isLoading = true)
+            when (val result = authUseCases.resetPassword(email)) {
+                is Resource.Success -> _uiState.value = AuthUiState(isSuccess = true)
+                is Resource.Error -> _uiState.value = AuthUiState(errorMessage = result.message)
+                is Resource.Loading -> Unit
+            }
+        }
+    }
+
+    fun logOut() = viewModelScope.launch {
+        authUseCases.logout()
+    }
+
+    fun clearError() {
+        _uiState.value = _uiState.value.copy(errorMessage = null)
+    }
 }
