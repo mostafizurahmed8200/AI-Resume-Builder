@@ -19,12 +19,15 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -46,9 +49,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ahmed.airesumebuilder.R
 import com.ahmed.airesumebuilder.util.Constant
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onNavigationToRegister: () -> Unit,
     onNavigationToHome: () -> Unit,
     viewModel: AuthViewModel = hiltViewModel()
 ) {
@@ -58,8 +61,13 @@ fun LoginScreen(
     var passwordVisible by remember { mutableStateOf(false) }
     var showForgetPassword by remember { mutableStateOf(false) }
 
-    LaunchedEffect(uiState.isSuccess) {
-        if (uiState.isSuccess) onNavigationToHome()
+
+    val sheetState = rememberModalBottomSheetState()
+    var showRegisterSheet by remember { mutableStateOf(false) }
+
+
+    LaunchedEffect(uiState.isLoginSuccess) {
+        if (uiState.isLoginSuccess) onNavigationToHome()
     }
 
     if (showForgetPassword) {
@@ -70,6 +78,21 @@ fun LoginScreen(
                 showForgetPassword = false
             })
     }
+
+    if (showRegisterSheet) {
+        ModalBottomSheet(
+            onDismissRequest = { showRegisterSheet = false },
+            sheetState = sheetState
+        ) {
+            RegisterScreen(
+                onDismissDialog = {showRegisterSheet=false},
+
+            )
+
+
+        }
+    }
+
 
     //UI Draw
     Column(
@@ -175,7 +198,7 @@ fun LoginScreen(
                 text = stringResource(R.string.don_t_have_an_account),
                 style = MaterialTheme.typography.bodyMedium
             )
-            TextButton(onClick = onNavigationToRegister) {
+            TextButton(onClick = { showRegisterSheet = true }) {
                 Text(stringResource(R.string.sign_up), fontWeight = FontWeight.Bold)
             }
         }
@@ -198,18 +221,22 @@ private fun ForgotPasswordDialog(onDismiss: () -> Unit, onSubmit: (String) -> Un
     var email by remember { mutableStateOf("") }
     AlertDialog(
         modifier = Modifier.fillMaxWidth(),
-        onDismissRequest = onDismiss, title = { Text("Reset Password") }, text = {
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.reset_password)) },
+        text = {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email Address") },
+                label = { Text(stringResource(R.string.email_address)) },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
-        }, confirmButton = {
+        },
+        confirmButton = {
             TextButton(onClick = { if (email.isNotBlank()) onSubmit(email) }) {
-                Text("Send Reset Link")
+                Text(stringResource(R.string.send_reset_link))
             }
-        }, dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } })
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } })
 }

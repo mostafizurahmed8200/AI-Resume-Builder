@@ -12,7 +12,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class AuthUiState(
-    val isLoading: Boolean = false, val isSuccess: Boolean = false, val errorMessage: String? = null
+    val isLoading: Boolean = false,
+    val isLoginSuccess: Boolean = false,
+    val isRegistrationSuccess: Boolean = false,
+    val errorMessage: String? = null
 )
 
 @HiltViewModel
@@ -30,7 +33,7 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = AuthUiState(isLoading = true)
             when (val result = authUseCases.login(email, password)) {
-                is Resource.Success -> _uiState.value = AuthUiState(isSuccess = true)
+                is Resource.Success -> _uiState.value = AuthUiState(isLoginSuccess = true)
                 is Resource.Error -> _uiState.value = AuthUiState(errorMessage = result.message)
                 is Resource.Loading -> Unit
             }
@@ -44,7 +47,10 @@ class AuthViewModel @Inject constructor(
             _uiState.value = AuthUiState(isLoading = true)
 
             when (val result = authUseCases.register(email, password, displayName)) {
-                is Resource.Success -> _uiState.value = AuthUiState(isSuccess = true)
+                is Resource.Success -> {
+                    authUseCases.logout() // Force logout after registration
+                    _uiState.value = AuthUiState(isRegistrationSuccess = true)
+                }
                 is Resource.Error -> _uiState.value = AuthUiState(errorMessage = result.message)
                 is Resource.Loading -> Unit
 
@@ -60,7 +66,7 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = AuthUiState(isLoading = true)
             when (val result = authUseCases.resetPassword(email)) {
-                is Resource.Success -> _uiState.value = AuthUiState(isSuccess = true)
+                is Resource.Success -> _uiState.value = AuthUiState(isLoginSuccess = true) // Reusing success for simplicity or add isResetSuccess
                 is Resource.Error -> _uiState.value = AuthUiState(errorMessage = result.message)
                 is Resource.Loading -> Unit
             }
@@ -71,7 +77,7 @@ class AuthViewModel @Inject constructor(
         authUseCases.logout()
     }
 
-    fun clearError() {
-        _uiState.value = _uiState.value.copy(errorMessage = null)
+    fun clearState() {
+        _uiState.value = AuthUiState()
     }
 }
