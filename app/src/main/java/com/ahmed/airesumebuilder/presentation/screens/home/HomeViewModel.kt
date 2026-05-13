@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 
 data class HomeUiState(
-    val resume: List<Resume> = emptyList(),
+    val resumes: List<Resume> = emptyList(),
     val isLoading: Boolean = false,
     val errorMessage: String? = null
 )
@@ -55,7 +55,7 @@ class HomeViewModel @Inject constructor(
                     // When new data arrives, put it in the state
                     _uiState.update {
                         it.copy(
-                            resume = resumes, isLoading = false
+                            resumes = resumes, isLoading = false
                         )
                     }
                 }

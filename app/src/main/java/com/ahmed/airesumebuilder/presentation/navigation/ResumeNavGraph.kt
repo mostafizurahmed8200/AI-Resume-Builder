@@ -42,7 +42,11 @@ fun ResumeNavGraph(
         }
 
         composable(route = Constant.Routes.HOME) {
-            HomeScreen()
+            HomeScreen(
+                onOpenResume = {},
+                onCreateResume = {},
+                onNavigateToProfile = {}
+            )
         }
 
     }
