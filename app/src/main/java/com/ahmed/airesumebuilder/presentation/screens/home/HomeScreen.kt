@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -54,7 +53,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.ahmed.airesumebuilder.domain.model.PersonalInfo
 import com.ahmed.airesumebuilder.domain.model.Resume
 import com.ahmed.airesumebuilder.presentation.theme.AIResumeBuilderTheme
-import com.ahmed.airesumebuilder.util.Constant
+import com.ahmed.airesumebuilder.util.Constant.KSpacerWidth
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -191,18 +190,18 @@ fun HomeContent(
                             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
                             textAlign = androidx.compose.ui.text.style.TextAlign.Center
                         )
-                        
+
                         Spacer(modifier = Modifier.height(16.dp))
 
                         Button(
                             onClick = onCreateResume,
                             modifier = Modifier
                                 .fillMaxWidth(0.7f)
-                                .height(56.dp),
+                                .height(45.dp),
                             shape = MaterialTheme.shapes.large
                         ) {
                             Icon(Icons.Default.Add, null)
-                            Spacer(modifier = Modifier.width(8.dp))
+                            KSpacerWidth(8.dp)
                             Text("Create Resume", style = MaterialTheme.typography.titleMedium)
                         }
                     }
@@ -368,7 +367,7 @@ private fun ResumeCard(resume: Resume, onClick: () -> Unit, onDelete: () -> Unit
                         )
                     }
                 }
-                Spacer(modifier = Modifier.width(16.dp))
+                KSpacerWidth(16.dp)
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = resume.personalInfo.fullName.ifBlank { "Untitled Resume" },

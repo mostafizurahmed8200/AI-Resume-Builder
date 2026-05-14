@@ -1,10 +1,16 @@
 package com.ahmed.airesumebuilder.util
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 
 object Constant {
@@ -33,15 +39,40 @@ object Constant {
 
 
     @Composable
-    fun MSpacerHeight(dp: Dp) {
+    fun KSpacerHeight(dp: Dp) {
         Spacer(
             modifier = Modifier.height(dp)
         )
     }
+
     @Composable
-    fun MSpacerWidth(dp: Dp) {
+    fun KSpacerWidth(dp: Dp) {
         Spacer(
             modifier = Modifier.width(dp)
+        )
+    }
+
+    @Composable
+    fun EditTextField(
+        label: String,
+        value: String,
+        keyboardType: KeyboardType = KeyboardType.Text,
+        minLines: Int = 1,
+        maxLines: Int = if (minLines > 1) 10 else 1,
+        onValueChange: (String) -> Unit
+    ) {
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            label = { Text(label) },
+            singleLine = minLines == 1,
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = keyboardType,
+                imeAction = ImeAction.Next
+            ),
+            minLines = minLines,
+            maxLines = maxLines
         )
     }
 }

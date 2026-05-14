@@ -59,20 +59,20 @@ fun SplashContent() {
 
 
             )
-            Constant.MSpacerHeight(10.dp)
+            Constant.KSpacerHeight(10.dp)
             Text(
                 text = stringResource(R.string.resume_builder),
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onPrimary,
                 fontWeight = FontWeight.Bold
             )
-            Constant.MSpacerHeight(8.dp)
+            Constant.KSpacerHeight(8.dp)
             Text(
                 text = stringResource(R.string.ai_powered_resume_creator),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
             )
-            Constant.MSpacerHeight(40.dp)
+            Constant.KSpacerHeight(40.dp)
             CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
         }
     }

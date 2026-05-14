@@ -8,6 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import com.ahmed.airesumebuilder.presentation.screens.auth.LoginScreen
 import com.ahmed.airesumebuilder.presentation.screens.auth.RegisterScreen
 import com.ahmed.airesumebuilder.presentation.screens.home.HomeScreen
+import com.ahmed.airesumebuilder.presentation.screens.resume.EducationScreen
+import com.ahmed.airesumebuilder.presentation.screens.resume.PersonalInfoScreen
 import com.ahmed.airesumebuilder.presentation.screens.splash.SplashScreen
 import com.ahmed.airesumebuilder.util.Constant
 
@@ -43,10 +45,23 @@ fun ResumeNavGraph(
 
         composable(route = Constant.Routes.HOME) {
             HomeScreen(
-                onOpenResume = {},
-                onCreateResume = {},
-                onNavigateToProfile = {}
-            )
+                onOpenResume = { resumeId -> navController.navigate("preview/$resumeId") },
+                onCreateResume = { navController.navigate(Constant.Routes.PERSONAL_INFO) },
+                onNavigateToProfile = { navController.navigate(Constant.Routes.PROFILE) })
+        }
+
+        composable(route = Constant.Routes.PERSONAL_INFO) {
+            PersonalInfoScreen(
+                onNext = { navController.navigate(Constant.Routes.EDUCATION) },
+                onBack = { navController.popBackStack() },
+
+                )
+        }
+
+        composable(route = Constant.Routes.EDUCATION) {
+            EducationScreen(
+                onNext = { navController.navigate(Constant.Routes.EXPERIENCE) },
+                onBack = { navController.popBackStack() })
         }
 
     }

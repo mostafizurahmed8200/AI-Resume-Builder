@@ -20,4 +20,13 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="passwords_do_not_match">Passwords do not match</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="full_name_star">Full Name *</string>
+    <string name="email_star">Email*</string>
+    <string name="phone">Phone</string>
+    <string name="location_city_country">Location (City, Country)</string>
+    <string name="linkedin_url">LinkedIn URL</string>
+    <string name="github_url">GitHub URL</string>
+    <string name="personal_website">Personal Website</string>
+    <string name="personal_summary">Personal Summary</string>
+    <string name="next_education">Next :Education</string>
 </resources>
