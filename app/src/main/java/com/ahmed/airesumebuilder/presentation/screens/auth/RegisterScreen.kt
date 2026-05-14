@@ -88,7 +88,7 @@ fun RegisterScreen(
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
         )
-        Constant.MSpacer(32.dp)
+        Constant.MSpacerHeight(32.dp)
         OutlinedTextField(
             value = displayName,
             onValueChange = { displayName = it },
@@ -98,7 +98,7 @@ fun RegisterScreen(
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
-        Constant.MSpacer(16.dp)
+        Constant.MSpacerHeight(16.dp)
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -110,7 +110,7 @@ fun RegisterScreen(
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
-        Constant.MSpacer(16.dp)
+        Constant.MSpacerHeight(16.dp)
         OutlinedTextField(
             value = password,
             onValueChange = { password = it; passwordMismatch = false },
@@ -133,7 +133,7 @@ fun RegisterScreen(
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
-        Constant.MSpacer(16.dp)
+        Constant.MSpacerHeight(16.dp)
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { 
@@ -165,12 +165,12 @@ fun RegisterScreen(
         )
 
         uiState.errorMessage?.let {
-            Constant.MSpacer(8.dp)
+            Constant.MSpacerHeight(8.dp)
             Text(it, color = MaterialTheme.colorScheme.error)
         }
 
 
-        Constant.MSpacer(16.dp)
+        Constant.MSpacerHeight(16.dp)
         Button(
             onClick = {
                 if (password != confirmPassword) {
@@ -192,7 +192,7 @@ fun RegisterScreen(
             }
         }
 
-        Constant.MSpacer(16.dp)
+        Constant.MSpacerHeight(16.dp)
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center

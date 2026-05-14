@@ -116,7 +116,7 @@ fun LoginScreen(
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
 
         )
-        Constant.MSpacer(40.dp)
+        Constant.MSpacerHeight(40.dp)
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -130,7 +130,7 @@ fun LoginScreen(
 
         )
 
-        Constant.MSpacer(16.dp)
+        Constant.MSpacerHeight(16.dp)
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
@@ -158,7 +158,7 @@ fun LoginScreen(
         )
 
         uiState.errorMessage?.let {
-            Constant.MSpacer(8.dp)
+            Constant.MSpacerHeight(8.dp)
             Text(
                 it, color = MaterialTheme.colorScheme.error,
                 style = MaterialTheme.typography.bodySmall
@@ -166,13 +166,13 @@ fun LoginScreen(
 
         }
 
-        Constant.MSpacer(8.dp)
+        Constant.MSpacerHeight(8.dp)
         TextButton(
             onClick = { showForgetPassword = true },
             modifier = Modifier.align(Alignment.End)
         ) { Text(stringResource(R.string.forget_password)) }
 
-        Constant.MSpacer(8.dp)
+        Constant.MSpacerHeight(8.dp)
         Button(
             onClick = { viewModel.login(email, password) },
             modifier = Modifier
@@ -192,7 +192,7 @@ fun LoginScreen(
 
 
         }
-        Constant.MSpacer(16.dp)
+        Constant.MSpacerHeight(16.dp)
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = stringResource(R.string.don_t_have_an_account),
